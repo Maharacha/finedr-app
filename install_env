@@ -1,0 +1,20 @@
+java jdk
+
+android sdk
+
+gradle
+curl -s "https://get.sdkman.io" | bash
+sdk install gradle 5.1.1
+
+android sdkmanager
+https://developer.android.com/studio/command-line/sdkmanager
+./sdkmanager "build-tools;28.0.3"
+./sdkmanager --update
+
+ionic cordova plugin add cordova-plugin-camera
+npm install --save @ionic-native/camera
+
+ionic cordova plugin add cordova-plugin-advanced-http
+npm install @ionic-native/http
+
+cordova plugin add https://github.com/mapsplugin/cordova-plugin-googlemaps#multiple_maps --variable API_KEY_FOR_ANDROID="AIzaSyCKzYO3uSxiRkwz3NfJrkjRefMnLWO2e0s"

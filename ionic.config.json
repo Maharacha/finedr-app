@@ -1,5 +1,7 @@
 {
   "name": "finedr",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -1,0 +1,3 @@
+AIzaSyCKzYO3uSxiRkwz3NfJrkjRefMnLWO2e0s
+
+ionic cordova plugin add cordova-plugin-googlemaps --variable API_KEY_FOR_ANDROID="AIzaSyCKzYO3uSxiRkwz3NfJrkjRefMnLWO2e0s" --variable API_KEY_FOR_IOS="AIzaSyCKzYO3uSxiRkwz3NfJrkjRefMnLWO2e0s"
