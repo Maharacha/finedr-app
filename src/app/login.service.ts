@@ -15,24 +15,22 @@ export class LoginService {
     )
     {}
 
-    public getToken(username: string, password: string) {
+    public getToken(username: string, password: string, callbackLoggedIn: Function, callbackNotLoggedIn: Function) {
 	let serverAddress = this.httpService.serverAddress;
     	this.http.post(this.httpService.serverAddress + '/api-token-auth/', {
-    	    'username': 'admin',
-    	    'password': 'admin'
+    	    'username': username,
+    	    'password': password
     	}, {}).then(request => {
     	    let jsonObj = JSON.parse(request.data);
     	    let token = jsonObj.token;
     	    this.token = token;
-    	    // return new Promise((resolve) => {
-	    // 	resolve(token);
-	    // });
+	    callbackLoggedIn();
     	}).catch(error => {
-	    alert(error.error);
     	    console.log(error.status);
     	    console.log(error.error); // error message as string
     	    console.log(error.headers);
+	    callbackNotLoggedIn();
     	});
-    	return '';
     }
 }
+

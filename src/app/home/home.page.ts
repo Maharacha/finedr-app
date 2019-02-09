@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import {
     ToastController,
@@ -18,12 +19,22 @@ export class HomePage {
 
     constructor(
 	private platform: Platform,
+	private router: Router,
 	private http: HTTP,
 	private loginService: LoginService) {
     }
 
     async ngOnInit() {
-	// await this.platform.ready();
-	this.loginService.getToken('admin', 'admin');
+	await this.platform.ready();
+	this.loginService.getToken('admin', 'admin', this.loggedIn.bind(this), this.notLoggedIn.bind(this));
+    }
+
+    loggedIn() {
+	console.log("Logged in with token: " + this.loginService.token);
+	this.router.navigate(['/map'])
+    }
+
+    notLoggedIn() {
+	console.log("Not logged in.");
     }
 }
