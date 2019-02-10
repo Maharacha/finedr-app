@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Fine details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="send()">
+    <ion-item>
+      <ion-label position="stacked">License plate: </ion-label>
+      <ion-input placeholder="e.g. XXX123" autocapitalize="characters" [(ngModel)]="fineDetails.licensePlate" name="licensePlate"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="stacked">Reason: </ion-label>
+      <ion-input type="text" placeholder="e.g. No ticket." autocapitalize="sentence" [(ngModel)]="fineDetails.reason" name="reason"></ion-input>
+    </ion-item>    
+    
+    <ion-button type="submit" color="primary" expand="full">
+      Send
+    </ion-button>
+  </form>
+</ion-content>

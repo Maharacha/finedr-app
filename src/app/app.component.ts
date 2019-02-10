@@ -29,6 +29,11 @@ export class AppComponent {
 	    title:'Camera',
 	    url: '/camera',
 	    icon: 'camera'
+	},
+	{
+	    title:'Fine form',
+	    url: '/fine-form',
+	    icon: 'form'
 	}
     ];
     

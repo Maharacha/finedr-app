@@ -16,7 +16,8 @@ const routes: Routes = [
     loadChildren: './list/list.module#ListPageModule'
   },
   { path: 'map', loadChildren: './map/map.module#MapPageModule' },
-  { path: 'camera', loadChildren: './camera/camera.module#CameraPageModule' }
+  { path: 'camera', loadChildren: './camera/camera.module#CameraPageModule' },
+  { path: 'fine-form', loadChildren: './fine-form/fine-form.module#FineFormPageModule' }
 ];
 
 @NgModule({
