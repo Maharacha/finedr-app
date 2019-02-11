@@ -19,6 +19,8 @@ export class FineFormPage implements OnInit {
     
     send() {
 	console.log(this.fineDetails);
+	alert(this.fineDetails.licensePlate);
+	alert(this.fineDetails.reason);
     }
     
 }

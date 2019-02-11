@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import {
     ToastController,
@@ -26,6 +27,7 @@ import { Location } from './location';
 import { ParkingLot } from './parkinglot';
 import { Point } from './parkinglot';
 import { LoginService } from '../login.service';
+import { MapService } from '../map.service';
 
 @Component({
     selector: 'app-map',
@@ -42,8 +44,10 @@ export class MapPage implements OnInit {
 	public loadingCtrl: LoadingController,
 	public toastCtrl: ToastController,
 	private platform: Platform,
+	private router: Router,
 	private http: HTTP,
-	private loginService: LoginService) {
+	private loginService: LoginService,
+	private mapService: MapService) {
 	this.setBrowserApiKeys();
 	this.currentLocation = new Location();
     }
@@ -79,13 +83,18 @@ export class MapPage implements OnInit {
 
     onMapReady() {
 	this.getCurrentLocation();
-	this.getParkingLotsFromApi();
+	this.mapService.getParkingLotsFromApi(this.parseAndAddParkingLots.bind(this));
+    }
+
+    onPolygonClick(data) {
+	console.log(data);
+	this.router.navigate(['/camera'])
     }
 
     moveCamera(latitude: number, longitude: number) {
 	this.map.animateCamera({
 	    target: {lat: latitude, lng: longitude},
-	    zoom: 20,
+	    zoom: 15,
 	    bearing: 140,
 	    duration: 500
 	});
@@ -99,17 +108,25 @@ export class MapPage implements OnInit {
 	});
     }
     
-    getParkingLotsFromApi() {
-	
+    parseAndAddParkingLots(jsonObj) {
+	for (let parkingLot of jsonObj) {
+	    let coordinates = JSON.parse(parkingLot.coordinates);
+	    this.addParkingLot(new ParkingLot(coordinates));
+	}
     }
 
     addParkingLot(coordinates: ParkingLot) {
 	
 	let options: PolygonOptions = {
 	    // points: lot.points
-	    points: coordinates.points
+	    points: coordinates.points,
+	    clickable: true
 	}
-	this.map.addPolygon(options);
+	this.map.addPolygon(options).then((polygon) => {
+	    polygon.on(GoogleMapsEvent.POLYGON_CLICK).subscribe((data) => {
+                this.onPolygonClick(data);
+	    });
+	});
     }
 
     getCurrentLocation() {

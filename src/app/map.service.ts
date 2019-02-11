@@ -15,7 +15,7 @@ export class MapService {
     )
     {}
 
-    getParkingLotsFromApi() {
+    getParkingLotsFromApi(callback: Function) {
     	let token = this.loginService.token;
 	let serverAddress = this.httpService.serverAddress;
 	this.http.get(serverAddress + '/parkinglot/', {}, {
@@ -27,11 +27,7 @@ export class MapService {
 		console.log(request.headers);
 
 		let jsonObj = JSON.parse(request.data);
-		
-		for (let parkingLot of jsonObj) {
-		    let coordinates = JSON.parse(parkingLot.coordinates);
-		    // this.addParkingLot(new ParkingLot(coordinates));
-		}
+		callback(jsonObj);
 	    })
 	    .catch(error => {
 		console.log(error.status);
