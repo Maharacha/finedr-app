@@ -14,6 +14,7 @@ export class CameraPage implements OnInit {
 	private camera: Camera) { }
     
     ngOnInit() {
+	this.takePicture();
     }
 
     // private options: CameraOptions = {

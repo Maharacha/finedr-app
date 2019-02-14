@@ -9,6 +9,8 @@
 
 <ion-content>
   <div id="map_canvas">
-    <!--<ion-button (click)="updatePosition()">Update position</ion-button> -->
+    <div id="nextPageButtonDiv">
+      <ion-button id="nextPageButton" size="large" (click)="nextPage()"  [color]="nextPageButtonColor">{{nextPageButtonText}}</ion-button>
+    </div>
   </div>
 </ion-content>

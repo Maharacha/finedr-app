@@ -39,6 +39,9 @@ export class MapPage implements OnInit {
 
     map: GoogleMap;
     currentLocation: Location;
+    nextPageButtonColor: string = "danger";
+    nextPageButtonText: string = 'No parking lot';
+    nextPageButtonDisabled: boolean = true;
     
     constructor(
 	public loadingCtrl: LoadingController,
@@ -82,13 +85,24 @@ export class MapPage implements OnInit {
     }
 
     onMapReady() {
-	this.getCurrentLocation();
+	this.nextPageButtonText = "No parking";
+	this.nextPageButtonColor = "danger";
+	
+	var nextPageButton = document.getElementById('nextPageButton') as HTMLButtonElement;
+	nextPageButton.disabled = true;	
+	this.nextPageButtonDisabled = true;
+	
+	this.getCurrentLocation();	
 	this.mapService.getParkingLotsFromApi(this.parseAndAddParkingLots.bind(this));
     }
 
-    onPolygonClick(data) {
-	console.log(data);
-	this.router.navigate(['/camera'])
+    onPolygonClick(data) {	
+	this.nextPageButtonText = "Camera";
+	this.nextPageButtonColor = 'secondary';
+	
+	var nextPageButton = document.getElementById('nextPageButton') as HTMLButtonElement;
+	nextPageButton.disabled = false;
+	this.nextPageButtonDisabled = false;
     }
 
     moveCamera(latitude: number, longitude: number) {
@@ -145,5 +159,9 @@ export class MapPage implements OnInit {
 		this.currentLocation.longitude = location.latLng.lng;		
 		this.moveCamera(this.currentLocation.latitude, this.currentLocation.longitude);
 	    });
+    }
+
+    nextPage() {
+	this.router.navigate(['/camera'])
     }
 }
