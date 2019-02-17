@@ -17,4 +17,7 @@ npm install --save @ionic-native/camera
 ionic cordova plugin add cordova-plugin-advanced-http
 npm install @ionic-native/http
 
+ionic cordova plugin add cordova-plugin-geolocation
+npm install @ionic-native/geolocation
+
 cordova plugin add https://github.com/mapsplugin/cordova-plugin-googlemaps#multiple_maps --variable API_KEY_FOR_ANDROID="AIzaSyCKzYO3uSxiRkwz3NfJrkjRefMnLWO2e0s"

@@ -5,6 +5,12 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-card>
+    <ion-card-content>
+      <img [src]="base64Image" *ngIf="base64Image" />
+    </ion-card-content>
+  </ion-card>
+  
   <form (ngSubmit)="send()">
     <ion-item>
       <ion-label position="stacked">License plate: </ion-label>

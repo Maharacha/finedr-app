@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormService } from '../form.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-fine-form',
@@ -7,20 +10,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FineFormPage implements OnInit {
 
+    public base64Image: string;
+    
     fineDetails = {
 	licensePlate: "",
 	reason: ""
     };
     
-    constructor() { }
+    constructor(
+	private router: Router,
+	public alertController: AlertController,
+	private formService: FormService) { }
     
     ngOnInit() {
+	this.base64Image = this.formService.base64Image;
     }
     
-    send() {
+    async send() {
 	console.log(this.fineDetails);
-	alert(this.fineDetails.licensePlate);
-	alert(this.fineDetails.reason);
+	
+    	let alert = await this.alertController.create({
+	    // header: '',
+	    // subHeader: '',
+	    message: 'Fine sent!',
+	    buttons: [
+		{
+		    text: 'OK',
+		    handler: () => {
+			this.router.navigate(['/map']);
+		    }
+		}
+	    ]
+	});
+	    
+	await alert.present();
     }
-    
 }

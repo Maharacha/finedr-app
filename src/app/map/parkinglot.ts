@@ -1,3 +1,6 @@
+import {
+    Polygon
+} from '@ionic-native/google-maps';
 
 export class Point {
     public lat: number;
@@ -12,6 +15,8 @@ export class Point {
 export class ParkingLot {
 
     public points: Array<Point>;
+    public polygon: Polygon;
+    public userIsInside: boolean = false;
 
     constructor(points: Array<Point>) {
 	this.points = points;

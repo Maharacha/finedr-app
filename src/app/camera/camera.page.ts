@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+
+import { FormService } from '../form.service';
 
 @Component({
     selector: 'app-camera',
@@ -8,10 +11,12 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 })
 export class CameraPage implements OnInit {
 
-    public base64Image: string;
+    //public base64Image: string;
     
     constructor(
-	private camera: Camera) { }
+	private router: Router,
+	private camera: Camera,
+	private formService: FormService) { }
     
     ngOnInit() {
 	this.takePicture();
@@ -40,7 +45,8 @@ export class CameraPage implements OnInit {
             targetHeight: 1000
     	}).then((imageData) => {
     	    // imageData is a base64 encoded string
-            this.base64Image = "data:image/jpeg;base64," + imageData;
+            this.formService.base64Image = "data:image/jpeg;base64," + imageData;
+	    this.router.navigate(['/fine-form'])
     	}, (err) => {
             console.log(err);
     	});
