@@ -46,6 +46,7 @@ export class MapPage implements OnInit {
     nextPageButtonText: string = 'No parking lot';
     nextPageButtonDisabled: boolean = true;
     parkingLots: Array<ParkingLot> = Array();
+    positionWatcherObj;
     
     constructor(
 	public loadingCtrl: LoadingController,
@@ -98,27 +99,12 @@ export class MapPage implements OnInit {
 	nextPageButton.disabled = true;	
 	this.nextPageButtonDisabled = true;
 	
-	this.getCurrentLocation();	
+	this.getCurrentLocation().then(() => {
+	    this.moveCamera(this.currentLocation.latitude, this.currentLocation.longitude);
+	});
+	
 	this.mapService.getParkingLotsFromApi(this.parseAndAddParkingLots.bind(this));
 
-
-	var POLYGON_POINTS = [
-	    {lat: 41.79883, lng: 140.75675},
-	    {lat: 41.799240000000005, lng: 140.75875000000002},
-	    {lat: 41.797650000000004, lng: 140.75905},
-	    {lat: 41.79637, lng: 140.76018000000002},
-	    {lat: 41.79567, lng: 140.75845},
-	    {lat: 41.794470000000004, lng: 140.75714000000002},
-	    {lat: 41.795010000000005, lng: 140.75611},
-	    {lat: 41.79477000000001, lng: 140.75484},
-	    {lat: 41.79576, lng: 140.75475},
-	    {lat: 41.796150000000004, lng: 140.75364000000002},
-	    {lat: 41.79744, lng: 140.75454000000002},
-	    {lat: 41.79909000000001, lng: 140.75465},
-	    {lat: 41.79883, lng: 140.75673}
-	];
-	var inside = Poly.containsLocation({lat: 41.7000, lng: 140.75675}, POLYGON_POINTS);
-	console.log(inside);
 	this.watchPosition();
     }
 
@@ -135,19 +121,36 @@ export class MapPage implements OnInit {
 	else
 	    this.updateNextPageButton(false);
     }
-    
-    watchPosition() {
-	let watch = this.geolocation.watchPosition();
-	watch.subscribe((data) => {
-	    this.positionChanged(new Location(data.coords.latitude, data.coords.longitude));
-	    // data can be a set of coordinates, or an error (if an error occurred).
-	    // data.coords.latitude
-	    // data.coords.longitude
+
+    async watchPosition() {
+	return new Promise( async () => {
+	    setTimeout(async () => {
+		this.getCurrentLocation();
+		let location = new Location(this.currentLocation.latitude, this.currentLocation.longitude);
+		this.positionChanged(location);
+		await this.watchPosition();
+	    }, 1000);
 	});
     }
 
+    marker = null;
+    addMarker(location: Location) {
+	if (this.marker == null) {
+	    this.map.addMarker({
+		position: {"lat": location.latitude, "lng": location.longitude}
+	    }).then((marker) => {	    
+		this.marker = marker;
+	    });
+	}
+	else {
+	    this.marker.setPosition({
+		lat: location.latitude,
+		lng: location.longitude
+	    });
+	}
+    }
+
     positionChanged(newPosition: Location) {
-	console.log(newPosition);
 	this.checkIfInsidePolygon(newPosition);
     }
 
@@ -230,11 +233,11 @@ export class MapPage implements OnInit {
 	});
     }
 
-    getCurrentLocation() {
+    async getCurrentLocation() {
 	let options: MyLocationOptions = {
 	    enableHighAccuracy: true
 	};
-	LocationService.getMyLocation(options)
+	await LocationService.getMyLocation(options)
 	    .then((location) => {
 		// alert(["Your current location:\n",
 		//        "latitude:" + location.latLng.lat.toFixed(3),
@@ -244,7 +247,6 @@ export class MapPage implements OnInit {
 		//        "bearing:" + location.bearing].join("\n"));
 		this.currentLocation.latitude = location.latLng.lat;
 		this.currentLocation.longitude = location.latLng.lng;		
-		this.moveCamera(this.currentLocation.latitude, this.currentLocation.longitude);
 	    });
     }
 
