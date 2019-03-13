@@ -14,6 +14,7 @@ import {
     GoogleMaps,
     GoogleMap,
     GoogleMapsEvent,
+    GoogleMapOptions,
     Marker,
     GoogleMapsAnimation,
     MyLocation,
@@ -71,16 +72,16 @@ export class MapPage implements OnInit {
     }
 
     loadMap() {
-	this.map = GoogleMaps.create('map_canvas', {
-	});
-	// Change the map options
-	this.map.setOptions({	    
+	let mapOptions: GoogleMapOptions = {
 	    'controls': {
 		'compass': true,
 		'myLocation': true,
 		'myLocationButton': true,
 		'zoom': true
-	    }});
+	    }
+	};
+	
+	this.map = GoogleMaps.create('map_canvas', mapOptions);
 	this.map.one(GoogleMapsEvent.MAP_READY).then(this.onMapReady.bind(this));
     }
 
