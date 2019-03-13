@@ -17,7 +17,7 @@ export class LoginService {
 
     public getToken(username: string, password: string, callbackLoggedIn: Function, callbackNotLoggedIn: Function) {
 	let serverAddress = this.httpService.serverAddress;
-    	this.http.post(this.httpService.serverAddress + '/api-token-auth/', {
+    	this.http.post(this.httpService.serverAddress + '-token-auth/', {
     	    'username': username,
     	    'password': password
     	}, {}).then(request => {
