@@ -1,23 +1,44 @@
-java jdk
+#installation ionic and cordova
+sudo apt install npm
+sudo npm install -g cordova
+sudo npm install -g ionic
 
-android sdk
+#configure platform in project
+ionic cordova platform add android
 
-gradle
-curl -s "https://get.sdkman.io" | bash
-sdk install gradle 5.1.1
+# Java jdk
+sudo apt install openjdk-8-jdk
 
-android sdkmanager
+# Android sdk
+# https://www.androidcentral.com/installing-android-sdk-windows-mac-and-linux-tutorial
+# https://ionicframework.com/docs/installation/android#java
+# Rename sdk to Android and put in Home folder.
+sudo apt-get install lib32ncurses5 lib32stdc++6
+
+# Add to ~/.bash_profile
+export ANDROID_SDK_ROOT=$HOME/Android/sdk
+export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin
+
+# Android SDK build tools
 https://developer.android.com/studio/command-line/sdkmanager
 ./sdkmanager "build-tools;28.0.3"
 ./sdkmanager --update
 
-ionic cordova plugin add cordova-plugin-camera
-npm install --save @ionic-native/camera
+# Platform tools
+# https://developer.android.com/studio/command-line/sdkmanager.html
+./sdkmanager "platform-tools" "platforms;android-28"
+# Add to ~/.bash_profile
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 
-ionic cordova plugin add cordova-plugin-advanced-http
-npm install @ionic-native/http
+# Gradle - used for installing app on android
+curl -s "https://get.sdkman.io" | bash
+sdk install gradle 5.1.1
 
-ionic cordova plugin add cordova-plugin-geolocation
-npm install @ionic-native/geolocation
+# Install plugins in project folder
+npm install
 
-cordova plugin add https://github.com/mapsplugin/cordova-plugin-googlemaps#multiple_maps --variable API_KEY_FOR_ANDROID="AIzaSyCKzYO3uSxiRkwz3NfJrkjRefMnLWO2e0s"
+# Run in browser
+ionic cordova run browser -l
+
+# Install on device
+ionic cordova run android
