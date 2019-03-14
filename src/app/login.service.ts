@@ -7,7 +7,8 @@ import { HttpService } from './http.service';
 })
 export class LoginService {
 
-    public token: string = "apan";
+    public username: string;    
+    public token: string;
 
     constructor(
     	private http: HTTP,
@@ -24,6 +25,7 @@ export class LoginService {
     	    let jsonObj = JSON.parse(request.data);
     	    let token = jsonObj.token;
     	    this.token = token;
+	    this.username = username;
 	    callbackLoggedIn();
     	}).catch(error => {
     	    console.log(error.status);

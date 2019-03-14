@@ -28,6 +28,9 @@ export class FineFormPage implements OnInit {
     
     async send() {
 	console.log(this.fineDetails);
+
+	this.formService.fineDetails = this.fineDetails;
+	this.formService.send();
 	
     	let alert = await this.alertController.create({
 	    // header: '',
