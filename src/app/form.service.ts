@@ -29,7 +29,7 @@ export class FormService {
     	    'image': this.base64Image,
     	    'license_plate': this.fineDetails.licensePlate,
 	    'reason': this.fineDetails.reason,
-	    'parking_lot_name': 'Apgatan',
+	    'parking_lot_name': 'Ringgatan 18-22',
 	    'created_by_name': username
     	}, {
 	    'Authorization': 'Token ' + token

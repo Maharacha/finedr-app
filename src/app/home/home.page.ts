@@ -26,7 +26,7 @@ export class HomePage {
 
     async ngOnInit() {
 	await this.platform.ready();
-	this.loginService.getToken('admin', 'admin', this.loggedIn.bind(this), this.notLoggedIn.bind(this));
+	this.loginService.getToken('joakim', 'joakim', this.loggedIn.bind(this), this.notLoggedIn.bind(this));
     }
 
     loggedIn() {
@@ -36,5 +36,6 @@ export class HomePage {
 
     notLoggedIn() {
 	console.log("Not logged in.");
+	alert("Failed logging in!");
     }
 }
