@@ -252,6 +252,6 @@ export class MapPage implements OnInit {
     }
 
     nextPage() {
-	this.router.navigate(['/camera'])
+	this.router.navigate(['/camera']);
     }
 }

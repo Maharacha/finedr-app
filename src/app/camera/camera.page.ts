@@ -49,6 +49,7 @@ export class CameraPage implements OnInit {
 	    this.router.navigate(['/fine-form'])
     	}, (err) => {
             console.log(err);
+	    this.router.navigate(['/map']);
     	});
     }
 }
