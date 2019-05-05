@@ -31,21 +31,22 @@ export class FineFormPage implements OnInit {
 
 	this.formService.fineDetails = this.fineDetails;
 	this.formService.send();
-	
-    	let alert = await this.alertController.create({
-	    // header: '',
-	    // subHeader: '',
-	    message: 'Fine sent!',
-	    buttons: [
-		{
-		    text: 'OK',
-		    handler: () => {
-			this.router.navigate(['/map']);
-		    }
-		}
-	    ]
-	});
+
+	this.router.navigate(['/fine-sent-success']);
+    	// let alert = await this.alertController.create({
+	//     // header: '',
+	//     // subHeader: '',
+	//     message: 'Fine sent!',
+	//     buttons: [
+	// 	{
+	// 	    text: 'OK',
+	// 	    handler: () => {
+	// 		this.router.navigate(['/map']);
+	// 	    }
+	// 	}
+	//     ]
+	// });
 	    
-	await alert.present();
+	// await alert.present();
     }
 }

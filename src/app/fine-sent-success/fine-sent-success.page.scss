@@ -1,0 +1,15 @@
+ion-content{
+    --ion-background-color:rgb(0,200,0);
+}
+
+#successOkButtonDiv {
+    text-align: center;
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: 30px;
+    pointer-events: none;
+}
+
+#successOkButton {
+}
