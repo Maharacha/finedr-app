@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'loading-app',
     pathMatch: 'full'
   },
   {
@@ -19,7 +19,8 @@ const routes: Routes = [
   { path: 'camera', loadChildren: './camera/camera.module#CameraPageModule' },
   { path: 'fine-form', loadChildren: './fine-form/fine-form.module#FineFormPageModule' },
   { path: 'fine-sent-success', loadChildren: './fine-sent-success/fine-sent-success.module#FineSentSuccessPageModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'loading-app', loadChildren: './loading-app/loading-app.module#LoadingAppPageModule' }
 ];
 
 @NgModule({
