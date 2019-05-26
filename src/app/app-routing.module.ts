@@ -18,7 +18,8 @@ const routes: Routes = [
   { path: 'map', loadChildren: './map/map.module#MapPageModule' },
   { path: 'camera', loadChildren: './camera/camera.module#CameraPageModule' },
   { path: 'fine-form', loadChildren: './fine-form/fine-form.module#FineFormPageModule' },
-  { path: 'fine-sent-success', loadChildren: './fine-sent-success/fine-sent-success.module#FineSentSuccessPageModule' }
+  { path: 'fine-sent-success', loadChildren: './fine-sent-success/fine-sent-success.module#FineSentSuccessPageModule' },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
 ];
 
 @NgModule({

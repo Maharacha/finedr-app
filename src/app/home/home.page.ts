@@ -9,6 +9,7 @@ import {
 
 import { HTTP } from '@ionic-native/http/ngx';
 import { LoginService } from '../login.service';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
     selector: 'app-home',
@@ -25,17 +26,18 @@ export class HomePage {
     }
 
     async ngOnInit() {
-	await this.platform.ready();
-	this.loginService.getToken('joakim', 'joakim', this.loggedIn.bind(this), this.notLoggedIn.bind(this));
+	    await this.platform.ready();
+        //this.loginService.getToken('joakim', 'joakim', this.loggedIn.bind(this), this.notLoggedIn.bind(this));
+        this.router.navigate(['/login'])
     }
 
     loggedIn() {
-	console.log("Logged in with token: " + this.loginService.token);
-	this.router.navigate(['/map'])
+	    console.log("Logged in with token: " + this.loginService.token);
+	    this.router.navigate(['/map'])
     }
 
     notLoggedIn() {
-	console.log("Not logged in.");
-	alert("Failed logging in!");
+	    console.log("Not logged in.");
+	    alert("Failed logging in!");
     }
 }

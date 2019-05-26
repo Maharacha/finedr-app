@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="login()">
+    <ion-item>
+      <ion-label position="stacked">User name: </ion-label>
+      <ion-input [(ngModel)]="username" name="usermame"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="stacked">Password: </ion-label>
+      <ion-input type="password" inputmode="password" [(ngModel)]="password" name="password"></ion-input>
+    </ion-item>    
+    
+    <ion-button type="submit" color="primary" expand="full">
+      Login
+    </ion-button>
+  </form>
+</ion-content>
