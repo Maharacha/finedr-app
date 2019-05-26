@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpService } from './http.service';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class LoginService {
 
 	constructor(
 		private http: HTTP,
-		private httpService: HttpService
+		private httpService: HttpService,
+		private storage: Storage
 	){}
 
 	public getToken(username: string, password: string, callbackLoggedIn: Function, callbackNotLoggedIn: Function) {
@@ -25,10 +27,12 @@ export class LoginService {
 				let token = jsonObj.token;
 				this.token = token;
 				this.username = username;
+				this.storage.set('username', this.username);
+				this.storage.set('token', this.token);
 	    	callbackLoggedIn();
     	}).catch(error => {
 				console.log(error.status);
-				console.log(error.error); // error message as string
+				console.log(error.error);
 				console.log(error.headers);
 	    	callbackNotLoggedIn();
     	});
@@ -36,21 +40,28 @@ export class LoginService {
 
 	public validateToken(callbackLoggedIn: Function, callbackNotLoggedIn: Function) {
 		console.log("Validates token");
-		let token = this.token;
-		let serverAddress = this.httpService.serverAddress;
-		this.http.get(serverAddress + '/parkinglot/', {}, {
-		Authorization: 'Token ' + token
-		})
-		.then(request => {
-			console.log(request.status);
-			console.log(request.data); // data received by server
-			console.log(request.headers);
-			callbackLoggedIn();
-		})
-		.catch(error => {
-			console.log(error.status);
-			console.log(error.error); // error message as string
-			console.log(error.headers);
+		this.storage.get('token').then((token) => {
+			console.log(token);
+			this.token = token;
+			let serverAddress = this.httpService.serverAddress;
+			this.http.get(serverAddress + '/parkinglot/', {}, {
+				Authorization: 'Token ' + token
+			})
+			.then(request => {
+				console.log(request.status);
+				console.log(request.data);
+				console.log(request.headers);
+				callbackLoggedIn();
+			})
+			.catch(error => {
+				console.log(error.status);
+				console.log(error.error);
+				console.log(error.headers);
+				callbackNotLoggedIn();
+			});
+		}).catch(error => {
+			console.log(error);
+			console.log("Could not get token from storage.");
 			callbackNotLoggedIn();
 		});
 	}
