@@ -3,6 +3,7 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { LoginService } from './login.service';
 import { HttpService } from './http.service';
 import { Location } from './map/location';
+import { ParkingLot } from './map/parkinglot';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class FormService {
 
     public base64Image: string;
 	public coordinates: Location;
+	public parkingLot: ParkingLot;
     public fineDetails = {
 		licensePlate: "",
 		reason: ""
@@ -34,7 +36,7 @@ export class FormService {
     	    'image': this.base64Image,
     	    'license_plate': this.fineDetails.licensePlate,
 			'reason': this.fineDetails.reason,
-			'parking_lot_name': 'Ringgatan 18-22',
+			'parking_lot_name': this.parkingLot.street_name,
 			'created_by_name': username,
 			'coordinates': JSON.stringify(coordinates)
 			}, {

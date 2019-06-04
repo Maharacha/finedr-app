@@ -42,7 +42,8 @@ import { FormService } from '../form.service';
 export class MapPage implements OnInit {
 
     map: GoogleMap;
-    currentLocation: Location;
+	currentLocation: Location;
+	currentParkingLot: ParkingLot;
     nextPageButtonColor: string = "danger";
     nextPageButtonText: string = 'No parking lot';
     nextPageButtonDisabled: boolean = true;
@@ -112,13 +113,17 @@ export class MapPage implements OnInit {
 		for (let parkingLot of this.parkingLots) {
 			let inside = Poly.containsLocation({lat: location.latitude, lng: location.longitude}, parkingLot.points);
 			this.updateParkingLotState(parkingLot, inside);
-			if (inside)
+			if (inside) {
 				insideAPolygon = true;
+				this.currentParkingLot = parkingLot;
+			}
 		}
 		if (insideAPolygon)
 			this.updateNextPageButton(true);
-		else
+		else {
 			this.updateNextPageButton(false);
+			this.currentParkingLot = null;
+		}
     }
 
     async watchPosition() {
@@ -211,8 +216,9 @@ export class MapPage implements OnInit {
     
     parseAndAddParkingLots(jsonObj) {
 		for (let parkingLot of jsonObj) {
-			let coordinates = JSON.parse(parkingLot.coordinates);	    
-			this.addParkingLot(new ParkingLot(coordinates));
+			let coordinates = JSON.parse(parkingLot.coordinates);
+			let street_name = parkingLot.street_name;	    
+			this.addParkingLot(new ParkingLot(street_name, coordinates));
 		}
     }
 
@@ -250,6 +256,7 @@ export class MapPage implements OnInit {
 
     nextPage() {
 		this.formService.coordinates = this.currentLocation;
+		this.formService.parkingLot = this.currentParkingLot;
 		this.router.navigate(['/camera']);
     }
 }
