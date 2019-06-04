@@ -44,7 +44,7 @@ export class LoginService {
 			console.log(token);
 			this.token = token;
 			let serverAddress = this.httpService.serverAddress;
-			this.http.get(serverAddress + '/parkinglot/', {}, {
+			this.http.get(serverAddress + '/getusername/', {}, {
 				Authorization: 'Token ' + token
 			})
 			.then(request => {
