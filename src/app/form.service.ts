@@ -36,7 +36,7 @@ export class FormService {
     	    'image': this.base64Image,
     	    'license_plate': this.fineDetails.licensePlate,
 			'reason': this.fineDetails.reason,
-			'parking_lot_name': this.parkingLot.street_name,
+			'parking_lot_name': this.parkingLot != null ? this.parkingLot.street_name : 'Ringgatan 18-22',
 			'created_by_name': username,
 			'coordinates': JSON.stringify(coordinates)
 			}, {
