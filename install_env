@@ -42,3 +42,9 @@ ionic cordova run browser -l
 
 # Install on device
 ionic cordova run android
+
+# IOS
+sudo gem install cocoapods
+# Step into dir platform/ios
+pod install
+pod update
