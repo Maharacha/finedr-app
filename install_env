@@ -48,3 +48,9 @@ sudo gem install cocoapods
 # Step into dir platform/ios
 pod install
 pod update
+
+# IOS privacy settings in Xcode
+# /platform/ios/Finedr/Finedr-Info.plist
+# Info
+# Key: Privacy - Camera Usage Description
+# Value: "Whatever the camera is used for."
