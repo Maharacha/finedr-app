@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Keyboard } from '@ionic-native/keyboard/ngx'
 
 @Component({
   selector: 'app-fine-sent-success',
@@ -9,13 +10,14 @@ import { Router } from '@angular/router';
 export class FineSentSuccessPage implements OnInit {
 
     constructor(
-	private router: Router ) { }
+    private router: Router,
+    private keyboard: Keyboard ) { }
 
     ngOnInit() {
     }
 
     async successOkButtonClick() {
-	console.log("OK CLIKED");
-	this.router.navigate(['/map']);
+	    console.log("OK CLIKED");
+	    this.router.navigate(['/map']);
     }
 }

@@ -34,6 +34,11 @@ export class AppComponent {
 	    title:'Fine form',
 	    url: '/fine-form',
 	    icon: 'form'
+	},
+	{
+	    title:'History',
+	    url: '/history',
+	    icon: 'car'
 	}
     ];
     
