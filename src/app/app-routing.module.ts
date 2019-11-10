@@ -21,7 +21,8 @@ const routes: Routes = [
   { path: 'fine-sent-success', loadChildren: './fine-sent-success/fine-sent-success.module#FineSentSuccessPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'loading-app', loadChildren: './loading-app/loading-app.module#LoadingAppPageModule' },
-  { path: 'history', loadChildren: './history/history.module#HistoryPageModule' }
+  { path: 'history', loadChildren: './history/history.module#HistoryPageModule' },
+  { path: 'fine', loadChildren: './fine/fine.module#FinePageModule' }
 ];
 
 @NgModule({

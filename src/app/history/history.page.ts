@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HTTP } from '@ionic-native/http/ngx';
+import { Router, NavigationExtras } from '@angular/router';
 import { HttpService } from '../http.service';
 import { LoginService } from '../login.service';
+
+import { Fine } from '../fine/fine'
 
 @Component({
     selector: 'app-history',
@@ -10,12 +13,13 @@ import { LoginService } from '../login.service';
 })
 export class HistoryPage implements OnInit {
 
-    public items: Array<{ title: string; note: string; icon: string }> = [];
+    public fines: Array<Fine> = [];
     private icons = [
         'car'
       ];
 
     constructor(
+        private router: Router,
         private http: HTTP,
         private httpService: HttpService,
         private loginService: LoginService
@@ -52,11 +56,18 @@ export class HistoryPage implements OnInit {
             let dateAndTimeSplitted = fine['pub_date'].split("T")
             let date = dateAndTimeSplitted[0]
             let time = dateAndTimeSplitted[1].split(".")[0]
-            this.items.push({
-                title: fine['license_plate'],
-                note: date,
-                icon: this.icons[0]
-            });
+            this.fines.push(
+                new Fine(fine['license_plate'], fine['reason'], this.icons[0])
+            )
         }
+    }
+
+    navigateToFine(fine) {
+        let navigationExtras: NavigationExtras = {
+            state: {
+              fine: fine
+            }
+          };
+          this.router.navigate(['/fine'], navigationExtras);
     }
 }

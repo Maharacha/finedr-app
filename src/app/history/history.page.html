@@ -9,11 +9,11 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start"></ion-icon>
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
+    <ion-item *ngFor="let fine of fines" (click)="navigateToFine(fine)">
+      <ion-icon [name]="fine.icon" slot="start"></ion-icon>
+      {{fine.title}}
+      <div class="fine-note" slot="end">
+        {{fine.reason}}
       </div>
     </ion-item>
   </ion-list>
