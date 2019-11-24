@@ -56,8 +56,9 @@ export class HistoryPage implements OnInit {
             let dateAndTimeSplitted = fine['pub_date'].split("T")
             let date = dateAndTimeSplitted[0]
             let time = dateAndTimeSplitted[1].split(".")[0]
+            let fineJson = Fine.fromJson(fine)
             this.fines.push(
-                new Fine(fine['license_plate'], fine['reason'], this.icons[0])
+                Fine.fromJson(fine)
             )
         }
     }

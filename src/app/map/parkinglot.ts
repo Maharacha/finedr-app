@@ -27,4 +27,14 @@ export class ParkingLot {
     public addPoints(points: Array<Point>) {
 	    this.points = this.points.concat(points);
     }
+
+    static fromJson(jsonObj) {
+        let street_name = jsonObj.street_name
+        let points = new Array<Point>()
+        for (let point in jsonObj.coordinates) {
+            let pointJson = JSON.parse(point)
+            points.concat(new Point(pointJson.latitude, pointJson.longitude))
+        }
+        return new this(street_name, points)
+    }
 }
