@@ -25,7 +25,7 @@ export class FinePage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.fine = this.router.getCurrentNavigation().extras.state.fine;
-        this.getFineImageFromApi();
+        //this.getFineImageFromApi();
       }
     });
   }
