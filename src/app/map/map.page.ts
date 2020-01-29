@@ -32,6 +32,7 @@ import { Point } from './parkinglot';
 import { LoginService } from '../login.service';
 import { MapService } from '../map.service';
 import { FormService } from '../form.service';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @Component({
     selector: 'app-map',
@@ -59,7 +60,8 @@ export class MapPage implements OnInit {
 		private geolocation: Geolocation,
 		private loginService: LoginService,
 		private mapService: MapService,
-		private formService: FormService) {
+		private formService: FormService,
+		private camera: Camera) {
 			this.setBrowserApiKeys();
 			this.currentLocation = new Location();
     	}
@@ -200,8 +202,8 @@ export class MapPage implements OnInit {
     moveCamera(latitude: number, longitude: number) {
 		this.map.animateCamera({
 			target: {lat: latitude, lng: longitude},
-			zoom: 15,
-			bearing: 140,
+			zoom: 16,
+			bearing: 0,
 			duration: 500
 		});
     }
@@ -257,6 +259,19 @@ export class MapPage implements OnInit {
     nextPage() {
 		this.formService.coordinates = this.currentLocation;
 		this.formService.parkingLot = this.currentParkingLot;
-		this.router.navigate(['/camera']);
-    }
+		this.takePicture()
+	}
+	
+	takePicture(){
+    	this.camera.getPicture({
+            destinationType: this.camera.DestinationType.DATA_URL,
+            targetWidth: 1000,
+            targetHeight: 1000
+    	}).then((imageData) => {
+			this.formService.base64Image = "data:image/jpeg;base64," + imageData;
+	    	this.router.navigate(['/fine-form'])
+    	}, (err) => {
+            console.log(err);
+    	});
+	}
 }

@@ -9,6 +9,7 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,7 +29,8 @@ import { AppRoutingModule } from './app-routing.module';
 		Keyboard,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
 		HTTP,
-		Geolocation
+		Geolocation,
+		Camera
     ],
     bootstrap: [AppComponent]
 })
