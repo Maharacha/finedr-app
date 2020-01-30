@@ -17,7 +17,9 @@ export class FineFormPage implements OnInit {
 		licensePlate: "",
 		reason: ""
     };
-    
+	
+	private keyboard_hide_subcription;
+	
     constructor(
 		private router: Router,
 		public alertController: AlertController,
@@ -27,13 +29,24 @@ export class FineFormPage implements OnInit {
     
     ngOnInit() {
 		this.base64Image = this.formService.base64Image;
-    }
-    
+	}
+	
+	ionViewWillLeave() {
+		this.keyboard_hide_subcription.unsubscribe()
+	}
+	
     async send() {
 		console.log(this.fineDetails);
 		this.formService.fineDetails = this.fineDetails;
 		this.formService.send();
-		this.router.navigate(['/fine-sent-success']);
+		if (this.keyboard.isVisible) {
+			this.keyboard_hide_subcription = this.keyboard.onKeyboardDidHide().subscribe(() => {
+				this.router.navigate(['/fine-sent-success']);
+			})
+			this.keyboard.hide()
+		} else {
+			this.router.navigate(['/fine-sent-success']);
+		}
 			// let alert = await this.alertController.create({
 		//     // header: '',
 		//     // subHeader: '',
