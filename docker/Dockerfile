@@ -17,7 +17,10 @@ RUN wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip \
 ENV ANDROID_HOME=/opt/android-sdk
 ENV PATH=$PATH:$ANDROID_HOME/tools/bin
 ENV PATH=$PATH:$ANDROID_HOME/platform-tools
-RUN yes | sdkmanager --licenses && sdkmanager "platform-tools" "platforms;android-28"
+RUN yes | sdkmanager --licenses \
+    && sdkmanager "build-tools;28.0.3" \
+    && sdkmanager "platform-tools" "platforms;android-28" \
+    && sdkmanager --update
 RUN apt-get install lib32ncurses5 lib32stdc++6 -y
 
 RUN apt-get install -y \
